@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Dream Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-pink: #ff4d7d;
+            --soft-purple: #c3a6ff;
+            --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #e1f5fe 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            color: #444;
+        }
+
+        /* Container Glassmorphism */
+        .wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--accent-pink);
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(0,0,0,0.05);
+            border-radius: 20px;
+            height: 12px;
+            margin: 20px 0 40px 0;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-pink), var(--soft-purple));
+            transition: width 0.5s ease;
+        }
+
+        /* Category Sections */
+        .category-block {
+            margin-bottom: 30px;
+        }
+
+        .category-header {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #555;
+        }
+
+        .category-header i {
+            margin-right: 10px;
+        }
+
+        /* List Styling */
+        .destination-card {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: var(--soft-purple);
+        }
+
+        .checkbox-wrapper {
+            position: relative;
+            margin-right: 15px;
+            display: flex;
+        }
+
+        input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            appearance: none;
+            border: 2px solid var(--accent-pink);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: var(--accent-pink);
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: '✔';
+            color: white;
+            position: absolute;
+            left: 5px;
+            top: -2px;
+            font-size: 16px;
+        }
+
+        .destination-name {
+            flex-grow: 1;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input[type="checkbox"]:checked + .destination-name {
+            text-decoration: line-through;
+            color: #bbb;
+        }
+
+        /* Floating Animation Elements */
+        .heart-float {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.2;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 480px) {
+            .wrapper { padding: 25px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart-float" style="top: 10%; left: 10%; font-size: 40px;">🌸</div>
+    <div class="heart-float" style="bottom: 15%; right: 10%; font-size: 30px; animation-delay: 2s;">✨</div>
+
+    <div class="wrapper">
+        <header>
+            <p class="subtitle">Adventure is better with you</p>
+            <h1>Having Fun Together With My GirlFriend</h1>
+            
+            <div style="margin-top: 30px; font-size: 0.9rem; color: #666;">
+                Journey Progress: <span id="progress-text">0%</span>
+            </div>
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+        </header>
+
+        <div class="category-block">
+            <div class="category-header">🌊 Pantai</div>
+            <div class="destination-card">
+                <input type="checkbox" id="item1" class="task-check">
+                <label for="item1" class="destination-name">Menikmati Sunset di Pantai Pandawa</label>
+            </div>
+            <div class="destination-card">
+                <input type="checkbox" id="item2" class="task-check">
+                <label for="item2" class="destination-name">Piknik Estetik di Pantai Anyer</label>
+            </div>
+        </div>
+
+        <div class="category-block">
+            <div class="category-header">🎢 PlayGround</div>
+            <div class="destination-card">
+                <input type="checkbox" id="item3" class="task-check">
+                <label for="item3" class="destination-name">Uji Nyali Naik Kora-Kora di Dufan</label>
+            </div>
+            <div class="destination-card">
+                <input type="checkbox" id="item4" class="task-check">
+                <label for="item4" class="destination-name">Main Ice Skating di Mall</label>
+            </div>
+        </div>
+
+        <div class="category-block">
+            <div class="category-header">🎭 Hiburan</div>
+            <div class="destination-card">
+                <input type="checkbox" id="item5" class="task-check">
+                <label for="item5" class="destination-name">Nonton Film Horor Midnight</label>
+            </div>
+            <div class="destination-card">
+                <input type="checkbox" id="item6" class="task-check">
+                <label for="item6" class="destination-name">Photobox Lucu di Studio</label>
+            </div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 40px; color: #aaa; font-size: 0.8rem;">
+            Made with ❤️ for our next memories
+        </footer>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.task-check');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        function updateProgress() {
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('.task-check:checked').length;
+            const percentage = Math.round((checked / total) * 100);
+            
+            progressBar.style.width = percentage + '%';
+            progressText.innerText = percentage + '%';
+        }
+
+        checkboxes.forEach(checkbox => {
+            // Load status
+            const isChecked = localStorage.getItem(checkbox.id) === 'true';
+            checkbox.checked = isChecked;
+
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(checkbox.id, checkbox.checked);
+                updateProgress();
+            });
+        });
+
+        // Jalankan saat pertama kali load
+        updateProgress();
+    </script>
+</body>
+</html>
