@@ -7,337 +7,266 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink: #ff85a2;
-            --blue: #a2d2ff;
-            --purple: #c3a6ff;
-            --glass: rgba(255, 255, 255, 0.8);
+            --bg-pantai: #ffebee; /* Merah muda lembut */
+            --bg-playground: #f3e5f5; /* Ungu lembut */
+            --bg-hiburan: #e1f5fe; /* Biru lembut */
+            --accent-pink: #ff85a2;
         }
 
-        /* Animasi Background Bergerak */
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 20px;
-            color: #444;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #fdf2f5, #e3f2fd, #f3e5f5, #fff3e0);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            overflow-x: hidden;
+            color: #333;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            max-width: 600px;
+        .app-container {
+            max-width: 500px;
             margin: 0 auto;
-            position: relative;
         }
 
+        /* Header Header ala Aplikasi */
         header {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInDown 1s ease-out;
+            margin-bottom: 25px;
+            padding: 10px 5px;
         }
 
-        h1 {
+        .brand-title {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
-            color: var(--pink);
+            font-size: 2rem;
+            color: var(--accent-pink);
             margin: 0;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
         }
 
-        /* Card Design */
-        .category-card {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border-radius: 25px;
-            padding: 25px;
+        .subtitle {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: -5px;
+        }
+
+        /* Grid Layout Utama */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 140px 140px;
+            gap: 15px;
             margin-bottom: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.6);
-            transition: transform 0.3s ease;
         }
 
-        .category-card:hover {
-            transform: translateY(-5px);
+        /* Card Styling */
+        .grid-card {
+            border-radius: 20px;
+            padding: 15px;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: transform 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
-        .category-header {
+        .grid-card:active { transform: scale(0.95); }
+
+        /* Customizing each card */
+        .card-pantai { 
+            background-color: var(--bg-pantai); 
+            grid-column: 1; 
+            grid-row: 1; 
+        }
+        .card-playground { 
+            background-color: var(--bg-playground); 
+            grid-column: 2; 
+            grid-row: 1 / 3; /* Tinggi ke bawah */
+        }
+        .card-hiburan { 
+            background-color: var(--bg-hiburan); 
+            grid-column: 1; 
+            grid-row: 2; 
+        }
+
+        .card-label {
+            font-weight: 600;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-icon {
+            position: absolute;
+            bottom: -5px;
+            right: 5px;
+            font-size: 4rem;
+            opacity: 0.8;
+            filter: grayscale(0.2);
+        }
+
+        /* List Section (Muncul saat kartu diklik) */
+        .list-section {
+            background: white;
+            border-radius: 25px 25px 0 0;
+            padding: 25px;
+            margin-top: 20px;
+            min-height: 300px;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+            display: none; /* Sembunyi sampai kategori dipilih */
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .list-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
 
-        .category-title {
-            font-weight: 600;
-            font-size: 1.3rem;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Animasi Tombol Tambah */
         .btn-add {
-            background: linear-gradient(135deg, var(--pink), var(--purple));
+            background: var(--accent-pink);
             color: white;
             border: none;
-            width: 35px;
-            height: 35px;
             border-radius: 50%;
+            width: 35px; height: 35px;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-size: 22px;
-            box-shadow: 0 4px 10px rgba(255,133,162,0.4);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .btn-add:hover {
-            transform: rotate(90deg) scale(1.2);
-        }
-
-        /* Item List Animation */
-        .destination-item {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 12px;
+        .item {
             display: flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            animation: slideIn 0.5s ease forwards;
-            opacity: 0;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .info { flex-grow: 1; }
-        .name { display: block; font-weight: 500; transition: 0.3s; }
-        .maps-link { font-size: 0.8rem; color: var(--blue); text-decoration: none; display: inline-block; margin-top: 4px; }
-
-        /* Custom Checkbox */
-        input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            accent-color: var(--pink);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        input[type="checkbox"]:active { transform: scale(1.4); }
-
-        .done .name { text-decoration: line-through; color: #ccc; }
-
-        /* Modal Animation */
-        #modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 30px;
-            width: 90%;
-            max-width: 400px;
-            transform: scale(0.8);
-            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes modalPop {
-            to { transform: scale(1); }
-        }
-
-        input[type="text"] {
-            width: 100%;
+            gap: 12px;
             padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            outline: none;
-            transition: border-color 0.3s;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        input[type="text"]:focus { border-color: var(--pink); }
+        .item input { width: 18px; height: 18px; accent-color: var(--accent-pink); }
+        .item.done .name { text-decoration: line-through; color: #ccc; }
+        .name { flex-grow: 1; font-size: 0.95rem; }
 
-        .btn-save { background: var(--pink); color: white; border: none; padding: 12px; flex: 1; border-radius: 12px; cursor: pointer; font-weight: 600; }
-        .btn-cancel { background: #f5f5f5; border: none; padding: 12px; flex: 1; border-radius: 12px; cursor: pointer; }
-
-        /* Particle / Sparkle */
-        .sparkle {
-            position: absolute;
-            pointer-events: none;
-            background: var(--pink);
-            border-radius: 50%;
-            animation: particle 0.8s ease-out forwards;
+        /* Modal */
+        #modal {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+            z-index: 100; justify-content: center; align-items: center;
         }
-
-        @keyframes particle {
-            to { transform: translate(var(--x), var(--y)); opacity: 0; }
-        }
+        .modal-content { background: white; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; }
+        input[type="text"] { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        .btn-save { background: var(--accent-pink); color:white; border:none; width:100%; padding:12px; border-radius:10px; font-weight:600; margin-top:10px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Having Fun Together With My GirlFriend</h1>
-            <p style="letter-spacing: 1px; color: #777; font-size: 0.9rem;">EVERY MOMENT MATTERS ❤️</p>
-        </header>
+<div class="app-container">
+    <header>
+        <h1 class="brand-title">Having Fun Together</h1>
+        <p class="subtitle">With My GirlFriend ❤️</p>
+    </header>
 
-        <div id="categories-container">
-            <div class="category-card">
-                <div class="category-header">
-                    <div class="category-title">🏖️ Pantai</div>
-                    <button class="btn-add" onclick="openModal('pantai')">+</button>
-                </div>
-                <div id="list-pantai"></div>
-            </div>
+    <div class="menu-grid">
+        <div class="grid-card card-pantai" onclick="showList('pantai')">
+            <div class="card-label">Pantai</div>
+            <div class="card-icon">🏖️</div>
+        </div>
 
-            <div class="category-card">
-                <div class="category-header">
-                    <div class="category-title">🎢 Play Ground</div>
-                    <button class="btn-add" onclick="openModal('playground')">+</button>
-                </div>
-                <div id="list-playground"></div>
-            </div>
+        <div class="grid-card card-playground" onclick="showList('playground')">
+            <div class="card-label">Play<br>Ground</div>
+            <div class="card-icon">🎢</div>
+        </div>
 
-            <div class="category-card">
-                <div class="category-header">
-                    <div class="category-title">🎬 Hiburan</div>
-                    <button class="btn-add" onclick="openModal('hiburan')">+</button>
-                </div>
-                <div id="list-hiburan"></div>
-            </div>
+        <div class="grid-card card-hiburan" onclick="showList('hiburan')">
+            <div class="card-label">Hiburan</div>
+            <div class="card-icon">🎬</div>
         </div>
     </div>
 
-    <div id="modal">
-        <div class="modal-content">
-            <h3 style="margin-top:0; color: var(--pink);">New Adventure?</h3>
-            <input type="text" id="input-name" placeholder="Nama Tempat...">
-            <input type="text" id="input-maps" placeholder="Link Google Maps (Opsional)">
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn-cancel" onclick="closeModal()">Batal</button>
-                <button class="btn-save" onclick="saveDestination()">Tambahkan ✨</button>
-            </div>
+    <div id="list-section" class="list-section">
+        <div class="list-header">
+            <h2 id="current-title" style="margin:0; font-size: 1.2rem;">Kategori</h2>
+            <button class="btn-add" onclick="openModal()">+</button>
         </div>
+        <div id="items-container">
+            </div>
     </div>
+</div>
 
-    <script>
-        let currentCategory = '';
-        let database = JSON.parse(localStorage.getItem('coolWishlist')) || {
-            pantai: [], playground: [], hiburan: []
-        };
+<div id="modal">
+    <div class="modal-content">
+        <h3 style="margin-top:0">Tambah Destinasi</h3>
+        <input type="text" id="input-name" placeholder="Nama tempat...">
+        <input type="text" id="input-maps" placeholder="Link Google Maps (Opsional)">
+        <button class="btn-save" onclick="saveData()">Simpan Ke Wishlist</button>
+        <button onclick="closeModal()" style="background:none; border:none; width:100%; margin-top:10px; color:#aaa; cursor:pointer;">Batal</button>
+    </div>
+</div>
 
-        function openModal(cat) {
-            currentCategory = cat;
-            document.getElementById('modal').style.display = 'flex';
-            document.getElementById('input-name').focus();
-        }
+<script>
+    let activeCategory = '';
+    let db = JSON.parse(localStorage.getItem('agodaWishlist')) || { pantai: [], playground: [], hiburan: [] };
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('input-name').value = '';
-            document.getElementById('input-maps').value = '';
-        }
-
-        function saveDestination() {
-            const name = document.getElementById('input-name').value;
-            const maps = document.getElementById('input-maps').value;
-            if (!name) return;
-
-            database[currentCategory].push({
-                id: Date.now(),
-                name: name,
-                maps: maps,
-                done: false
-            });
-            
-            render();
-            closeModal();
-        }
-
-        // Animasi Partikel saat Ceklis
-        function createFirework(e) {
-            for (let i = 0; i < 8; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'sparkle';
-                const size = Math.random() * 8 + 4;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                const destinationX = (Math.random() - 0.5) * 100;
-                const destinationY = (Math.random() - 0.5) * 100;
-                
-                particle.style.setProperty('--x', `${destinationX}px`);
-                particle.style.setProperty('--y', `${destinationY}px`);
-                particle.style.left = e.pageX + 'px';
-                particle.style.top = e.pageY + 'px';
-                
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 800);
-            }
-        }
-
-        function toggleDone(e, cat, id) {
-            const item = database[cat].find(i => i.id === id);
-            item.done = !item.done;
-            if (item.done) createFirework(e);
-            
-            // Delay render sedikit agar animasi checkbox terlihat
-            setTimeout(render, 300);
-        }
-
-        function deleteItem(cat, id) {
-            database[cat] = database[cat].filter(i => i.id !== id);
-            render();
-        }
-
-        function render() {
-            localStorage.setItem('coolWishlist', JSON.stringify(database));
-            
-            ['pantai', 'playground', 'hiburan'].forEach(cat => {
-                const list = document.getElementById(`list-${cat}`);
-                list.innerHTML = '';
-
-                database[cat].forEach((item, index) => {
-                    const div = document.createElement('div');
-                    div.className = `destination-item ${item.done ? 'done' : ''}`;
-                    div.style.animationDelay = `${index * 0.1}s`;
-                    
-                    div.innerHTML = `
-                        <input type="checkbox" ${item.done ? 'checked' : ''} 
-                               onchange="toggleDone(event, '${cat}', ${item.id})">
-                        <div class="info">
-                            <span class="name">${item.name}</span>
-                            ${item.maps ? `<a href="${item.maps}" target="_blank" class="maps-link">📍 Open Maps</a>` : ''}
-                        </div>
-                        <button style="background:none; border:none; cursor:pointer; opacity:0.3" 
-                                onclick="deleteItem('${cat}', ${item.id})">✕</button>
-                    `;
-                    list.appendChild(div);
-                });
-            });
-        }
-
+    function showList(cat) {
+        activeCategory = cat;
+        document.getElementById('list-section').style.display = 'block';
+        document.getElementById('current-title').innerText = cat.charAt(0).toUpperCase() + cat.slice(1);
+        
+        // Scroll otomatis ke area list
+        document.getElementById('list-section').scrollIntoView({ behavior: 'smooth' });
         render();
-    </script>
+    }
+
+    function openModal() { document.getElementById('modal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+    function saveData() {
+        const name = document.getElementById('input-name').value;
+        const maps = document.getElementById('input-maps').value;
+        if(!name) return;
+
+        db[activeCategory].push({ id: Date.now(), name, maps, done: false });
+        localStorage.setItem('agodaWishlist', JSON.stringify(db));
+        
+        document.getElementById('input-name').value = '';
+        document.getElementById('input-maps').value = '';
+        closeModal();
+        render();
+    }
+
+    function toggle(id) {
+        const item = db[activeCategory].find(i => i.id === id);
+        item.done = !item.done;
+        localStorage.setItem('agodaWishlist', JSON.stringify(db));
+        render();
+    }
+
+    function deleteItem(id) {
+        db[activeCategory] = db[activeCategory].filter(i => i.id !== id);
+        localStorage.setItem('agodaWishlist', JSON.stringify(db));
+        render();
+    }
+
+    function render() {
+        const container = document.getElementById('items-container');
+        container.innerHTML = '';
+
+        db[activeCategory].forEach(item => {
+            const div = document.createElement('div');
+            div.className = `item ${item.done ? 'done' : ''}`;
+            div.innerHTML = `
+                <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggle(${item.id})">
+                <div class="name">
+                    <b>${item.name}</b><br>
+                    ${item.maps ? `<a href="${item.maps}" target="_blank" style="font-size:0.7rem; color:#4dabf7; text-decoration:none;">📍 Buka Maps</a>` : ''}
+                </div>
+                <span onclick="deleteItem(${item.id})" style="cursor:pointer; opacity:0.2">✕</span>
+            `;
+            container.appendChild(div);
+        });
+    }
+</script>
+
 </body>
 </html>
